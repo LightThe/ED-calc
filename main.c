@@ -8,13 +8,21 @@ int menuMain(){
 	scanf("%d", &opcao);
   return opcao;
 }
+void validaExpressão(char express[];){
+	
+}
 int main(){
   int opc;
+  char exEnt[50];
 	do{
-		opc = menu();
+		opc = menuMain();
 		switch(opc){
 			case 1:
+			system("clear");
 				printf("Opção selecionada: Resolver Expressão.\n");
+				printf("Digite a expressão na forma infixa -> \n");
+				scanf("%[^\n]*c", exEnt);
+				
 			break;
 			case 2:
 				printf("Opção selecionada: Calculadora.\n");
