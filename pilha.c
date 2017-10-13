@@ -59,5 +59,7 @@ int imprimePilha(Pilha **stack){
 	return 1;
 }
 int pilha_vazia(Pilha **stack){
-	if 
+	if(stack == NULL){ return -1; }
+	if(*stack == NULL){ return 1; }
+	else{ return 0; }
 }

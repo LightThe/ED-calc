@@ -3,7 +3,7 @@
  *	TODO: Implementar tad da pilha
  *	TODO: comentar funcionamento de menus, validação e execução de expressões
 */
-#include<stdio.h>
+#include "pilha.h"
 int menuMain(){
   int opcao = -1;
   printf("\t\t\t----------------------------\n");
