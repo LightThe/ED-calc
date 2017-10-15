@@ -39,6 +39,7 @@ int main(){
 				printf("Para usar a calculadora, digite os valores, depois digite a operação\nque deseja realizar com os dois ultimos valores inseridos.\nDigite S a qualquer momento para Sair.\n\n");
 				printf("Pressione alguma tecla para iniciar...");
 				getchar();
+				getchar();
 				calc();
 			break;
 		/**************ERRO****************/
@@ -46,7 +47,7 @@ int main(){
 				printf("A opção selecionada não existe!!\n");
 			break;
 		}
-		system("clear"); 					//limpa a tela antes de refazer o menu ou finalizar o programa;
+		//system("clear"); 					//limpa a tela antes de refazer o menu ou finalizar o programa;
 	}while (opc!=1 && opc!=2); 				//enquanto a opção selecionada for incorreta, repete o menu;
 
 	return 0;

@@ -40,9 +40,10 @@ int imprimePilha(Pilha **stack){
 	Data print;
 	if(stack==NULL){ return -1; }
 	aux = novaPilha();
+	printf("Topo \\/\n");
 	while(*stack!=NULL){
 		desempilhaTopo(stack, &print);
-		printf("%c", print.valor);
+		printf("%d\n", print.num);
 		empilhaTopo(aux, print);
 	}
 	while(*aux!=NULL){
@@ -55,5 +56,15 @@ int imprimePilha(Pilha **stack){
 int pilha_vazia(Pilha **stack){
 	if(stack == NULL){ return -1; }
 	if(*stack == NULL){ return 1; }
-	else{ return 0; }
+	return 0;
+}
+int liberaPilha(Pilha **stack){
+	if(stack == NULL){ return -1; }
+	Data print;
+	while(*stack!=NULL){
+		desempilhaTopo(stack, &print);
+		printf("Desempilhado: %d\n", print.num);
+	}
+	free(stack);
+	return 1;
 }

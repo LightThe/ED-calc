@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 struct dados{
-	char valor;
+    int num;
+	char carac;
 };
 typedef struct dados Data;
 typedef struct node Pilha;
@@ -15,3 +16,5 @@ int desempilhaTopo(Pilha **stack, Data *elem);
 int imprimePilha(Pilha **stack);
 //verifica se a pilha é vazia
 int pilha_vazia(Pilha **stack);
+//libera toda a pilha
+int liberaPilha(Pilha **stack);
