@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
+struct dados{
+	char valor;
+};
 typedef struct dados Data;
 typedef struct node Pilha;
 //cria e inicializa uma nova pilha

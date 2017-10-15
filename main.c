@@ -4,60 +4,7 @@
  *	TODO: comentar funcionamento de menus, validação e execução de expressões
 */
 #include "pilha.h"
-int menuMain(){
-  int opcao = -1;
-  printf("\t\t\t----------------------------\n");
-  printf("\t\t\t  SELECIONE O MODO DE USO.\n");
-  printf("\t\t\t----------------------------\n");
-	printf("\t1- Resolver Expressão.\n\t2- Calculadora.\nSelecione a opção inserindo seu número: \n");
-	scanf("%d", &opcao);
-  return opcao;
-}
-int validaExpressão(char Expr[]){
-	//pilha nova
-	int cnt;
-	for(cnt=0; Expr[cnt] != '\0'; cnt++;){
-		if(Expr[cnt] == '('){
-			//empilha
-		}
-		else if(Expr[cnt] == ')'){
-			if(pilha_vazia(/*pilha*/)){
-				return 1
-			}
-			else{
-				//desempilha
-			}
-		}
-	}
-	if(pilha_vazia(/*pilha*/)){ return 0; }
-	else { return 1; }
-	return 0; //retorna 0 se for válida
-	return 1; //retorna 1 se for inválida
-}
-void posfixaExpressao(char Expr[]){
-
-}
-void calc(){
-	char in;
-	//iniciar pilha vazia
-	do{
-		system("clear");
-		printf("CALCULADORA:")
-		if(pilha_vazia(/*pilha*/)){ printf("Pilha Vazia!\n -> "); }
-		else{ printPilha(/*pilha*/); }
-		scanf("%c", &in);
-		if(in>=48 && in<=57){
-			//NUMERO
-		}
-		else{
-			if(in=='+') { /*soma*/ }
-			else if(in=='-') { /*subtrac*/ }
-			else if(in=='*') { /*multiply*/ }
-			else if(in=='/') { /*divisao*/ }
-		}
-		
-	}while(in!='s' && in!='S');
-}
+#include "expressao.h"
 int main(){
   int opc, cnt, ret; 					//opc = opção, cnt = contagem , ret = retorno
   float res;							//res = resultado
@@ -77,7 +24,7 @@ int main(){
 					break;
 				}
 				else{
-					prinf("A expressão %s é válida!\n", exEnt);
+					printf("A expressão %s é válida!\n", exEnt);
 					//transforma pra forma posfixa
 					printf("A expressão em sua forma posfixa é -> %s\n", exPos);
 					//avaliar?? a expressao posfixada

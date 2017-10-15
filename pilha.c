@@ -1,9 +1,4 @@
 #include "pilha.h"
-struct dados{
-	int num;
-	char carac;
-};
-//typedef struct dados Data
 struct node{
 	Data dados;
 	struct node *prox;
@@ -17,7 +12,7 @@ struct node{
 Pilha **novaPilha(){
 	Pilha **novo;
 	novo = (Pilha**)malloc(sizeof(Pilha*)*1);
-	if(novo==NULL){ return -1; }
+	if(novo==NULL){ printf("Não foi possivel crir a pilha\n"); return NULL; }
 	*novo=NULL;
 	return novo;
 }
@@ -35,23 +30,22 @@ int desempilhaTopo(Pilha **stack, Data *elem){
 	if(stack==NULL){ return -1; }//-1 = pilha não existe
 	else if(*stack==NULL){ return 0; }//0 = pilha vazia
 	aux = *stack;
-	*elem = aux->data;
+	*elem = aux->dados;
 	*stack = (*stack)->prox;
 	free(aux);
 	return 1;
 }
 int imprimePilha(Pilha **stack){
 	Pilha **aux;
-	Data print
+	Data print;
 	if(stack==NULL){ return -1; }
 	aux = novaPilha();
 	while(*stack!=NULL){
 		desempilhaTopo(stack, &print);
-		if(print.carac == ''){ printf("%d", print.num); }
-		else{ printf("%c", print.carac); }
+		printf("%c", print.valor);
 		empilhaTopo(aux, print);
 	}
-	while(*aux!=null){
+	while(*aux!=NULL){
 		desempilhaTopo(aux, &print);
 		empilhaTopo(stack, print);
 	}
