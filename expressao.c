@@ -2,10 +2,10 @@
 #include<string.h>
 int menuMain(){
     int opcao = -1;
-    printf("\t\t\t----------------------------\n");
-    printf("\t\t\t  SELECIONE O MODO DE USO.\n");
-    printf("\t\t\t----------------------------\n");
-    printf("\t1- Resolver Expressão.\n\t2- Calculadora.\n\t3- SAIRSelecione a opção inserindo seu número: \n");
+    printf("\t\t----------------------------\n");
+    printf("\t\t  SELECIONE O MODO DE USO.\n");
+    printf("\t\t----------------------------\n");
+    printf("\t1- Resolver Expressão.\n\t2- Calculadora.\n\t3- SAIR\n\nSelecione a opção inserindo seu número: \n");
     scanf("%d", &opcao);
     return opcao;
 }

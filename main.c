@@ -11,13 +11,14 @@ int main(){
   char exEnt[50] = "", exPos[50] = "";	//exEnt = Entrada do usuario, exPos = convertida posfixada
 	do{
 		opc = menuMain(); //recebe a opção selecionada do menu;
+		fflush(stdin);
 		switch(opc){
 		/**********************Opcao 1: Resolver Expressão********************/
 			case 1:
 				system("clear"); 												 //limpa os menus anteriores da tela
 				printf("\t\tOpção selecionada: Resolver Expressão.\n");
 				printf("Digite a expressão na forma infixa -> "); 
-				scanf("%[^\n]s", exEnt); 									   	 //lê a expressão digitada, até o \n (enter)
+				scanf("\n%[^\n]s", exEnt); 									   	 //lê a expressão digitada, até o \n (enter)
 				ret = validaExpressão(exEnt);									 //usa a função validaExpressão e armazena seu retorno em ret
 				if(ret){ 														 //se o retorno for diferente de zero, a função é inválida
 					printf("A Expressão é inválida!\n\nRetornando ao menu...\n");
@@ -37,11 +38,16 @@ int main(){
 				system("clear"); 												 //limpa os menus anteriores da tela
 				printf("Opção selecionada: Calculadora.\n");
 				printf("Para usar a calculadora, digite os valores, depois digite a operação\nque deseja realizar com os dois ultimos valores inseridos.\nDigite S a qualquer momento para Sair.\n\n");
-				printf("Pressione alguma tecla para iniciar...");
+				printf("Pressione ENTER para iniciar...");
 				getchar();
 				getchar();
 				calc();
-				opc=0;
+			break;
+			case 3:
+				system("clear");
+				printf("Pressione ENTER para finalizar o programa...");
+				getchar();
+				getchar();
 			break;
 		/**************ERRO****************/
 			default:
