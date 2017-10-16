@@ -5,117 +5,141 @@ int menuMain(){
     printf("\t\t\t----------------------------\n");
     printf("\t\t\t  SELECIONE O MODO DE USO.\n");
     printf("\t\t\t----------------------------\n");
-      printf("\t1- Resolver Expressão.\n\t2- Calculadora.\n\t3- SAIRSelecione a opção inserindo seu número: \n");
-      scanf("%d", &opcao);
+    printf("\t1- Resolver Expressão.\n\t2- Calculadora.\n\t3- SAIRSelecione a opção inserindo seu número: \n");
+    scanf("%d", &opcao);
     return opcao;
-  }
-  int validaExpressão(char Expr[]){
-      //pilha nova
-      Pilha **stack;
-      Data elem;
-      int cnt;
-      for(cnt=0; Expr[cnt] != '\0'; cnt++){
-          if(Expr[cnt] == '('){
-              //sprintf(elem.valor, "(");
-              empilhaTopo(stack, elem);
-          }
-          else if(Expr[cnt] == ')'){
-              if(pilha_vazia(stack)){
-                  return 1;
-              }
-              else{
-                  desempilhaTopo(stack, &elem);
-              }
-          }
-      }
-      if(pilha_vazia(stack)){ return 0; }
-      else { return 1; }
-      return 0; //retorna 0 se for válida
-      return 1; //retorna 1 se for inválida
-  }
-  void posfixaExpressao(char Expr[]){
-  
-  }
-void calc(){
-    char in;
+}
+int validaExpressão(char Expr[]){
     Pilha **stack;
-    Data element;
-    int n1, n2, res;
+    Data elem;
+    int cnt;
+    for(cnt=0; Expr[cnt] != '\0'; cnt++){
+        if(Expr[cnt] == '('){
+            elem.carac = '(';
+            empilhaTopo(stack, elem);
+        }
+        else if(Expr[cnt] == ')'){
+            if(pilha_vazia(stack)){
+                return 1;
+            }
+            else{
+                desempilhaTopo(stack, &elem);
+            }
+        }
+    }
+    if(pilha_vazia(stack)){ return 0; }
+    else { return 1; }
+    return 0; //retorna 0 se for válida
+    return 1; //retorna 1 se for inválida
+}
+void posfixaExpressao(char Expr[]){
+    Pilha **stack;
     stack = novaPilha();
-    do{
+    int i, tamExp = strlen(Expr);
+    for(i=0; i<tamExp; i++){
+        if(Expr[i] >= 48 && Expr[i] <= 57){
+            //número
+            
+        }
+        else if(Expr[i] == '('){
+            //parentese de abertura
+        }
+        else if(Expr[i] == ')'){
+            //parentese de fechamento
+        }
+        else if(Expr[i] == '+' || Expr[i] == '-' || Expr[i] == '*' || Expr[i] == '/'){
+            //operador
+        }
+    }
+}
+void calc(){
+    char in;                //recebe uma entrada
+    Pilha **stack;          //pilha nova
+    Data element;           //elemento para ajudar a empilhar/desempilhar
+    int n1, n2, res;        //n1, n2 e res. Usados para armazenar os dois numeros e o resultado da operaçao
+    stack = novaPilha();    //cria a pilha vazia
+    do{                                 //repete as instruções a partir DESTE PONTO
         printf("\n\n\n\nCALCULADORA:\n");
-        if(pilha_vazia(stack)){ printf("Pilha Vazia!\n"); }
-        else{ imprimePilha(stack); }
+        if(pilha_vazia(stack)){ printf("Pilha Vazia!\n"); }     //assim que iniciar, exibir a pilha
+        else{ imprimePilha(stack); }                            //a cada repetição, imprime o conteúdo da pilha na tela
         printf("\n");
-        scanf("%c", &in);
-        if(in>=48 && in<=57){
-            element.num = atoi(&in);
-            empilhaTopo(stack, element);
-            //NUMERO
+        scanf("%c", &in);                                       //recebe o numero/símbolo inserido pelo usuário
+        if(in>=48 && in<=57){                                   //se o valor digitado for equivalente a um numero
+            element.num = atoi(&in);                            //usa atoi para converter o número para inteiro, e empilha
+            empilhaTopo(stack, element);                        //empilha o numero no topo
         }
         else{
-            if(in=='+') {
-                desempilhaTopo(stack, &element);
-                n1 = element.num;
-                if(pilha_vazia(stack)){
-                    printf("Não há operandos suficientes para realizar a operação.\n");
-                    empilhaTopo(stack, element);
-                }
-                else{
-                    desempilhaTopo(stack, &element);
-                    n2 = element.num;
-                    res=n2+n1;
-                    element.num = res;
-                    empilhaTopo(stack, element);
-                }
-            }
-            else if(in=='-') { /*subtrac*/ 
-                desempilhaTopo(stack, &element);
-                n1 = element.num;
-                if(pilha_vazia(stack)){
-                    printf("Não há operandos suficientes para realizar a operação.\n");
-                    empilhaTopo(stack, element);
-                }
-                else{
-                    desempilhaTopo(stack, &element);
-                    n2 = element.num;
-                    res=n2-n1;
-                    element.num = res;
-                    empilhaTopo(stack, element);
+                                                        //as operações funcionam de forma parecida
+            if(in=='+') {                               //ao detectar um operador na entrada
+                if(pilha_vazia(stack) == 0){            //verifica se a pilha não é vazia
+                    desempilhaTopo(stack, &element);    //desempilha o primeiro operando
+                    n1 = element.num;                   //armazena seu valor em n1
+                    if(pilha_vazia(stack)){             //se não existirem mais operandos na pilha...
+                        printf("Não há operandos suficientes para realizar a operação.\n");
+                        empilhaTopo(stack, element);    //empilha o operando anterior e não executa a operação
+                    }
+                    else{                               //se existir a quantidade necessária de operandos
+                        desempilhaTopo(stack, &element);//desempilha o próximo operando
+                        n2 = element.num;               //armazena seu valor em n2
+                        res=n2+n1;                      //executa a operação
+                        element.num = res;              //armazena o resultado no formato de dados da pilha
+                        empilhaTopo(stack, element);    //para depois empilhar o valor obtido novamente
+                    }
                 }
             }
-            else if(in=='*') { /*multiply*/ 
-                desempilhaTopo(stack, &element);
-                n1 = element.num;
-                if(pilha_vazia(stack)){
-                    printf("\n\tNão há operandos suficientes para realizar a operação.\n");
-                    empilhaTopo(stack, element);
-                }
-                else{
+            else if(in=='-') { /*subtracao*/ 
+                if(pilha_vazia(stack)==0){
                     desempilhaTopo(stack, &element);
-                    n2 = element.num;
-                    res=n2*n1;
-                    element.num = res;
-                    empilhaTopo(stack, element);
+                    n1 = element.num;
+                    if(pilha_vazia(stack)){
+                        printf("Não há operandos suficientes para realizar a operação.\n");
+                        empilhaTopo(stack, element);
+                    }
+                    else{
+                        desempilhaTopo(stack, &element);
+                        n2 = element.num;
+                        res=n2-n1;
+                        element.num = res;
+                        empilhaTopo(stack, element);
+                    }
+                }
+            }
+            else if(in=='*') { /*multiplicacao*/ 
+                if(pilha_vazia(stack)==0){
+                    desempilhaTopo(stack, &element);
+                    n1 = element.num;
+                    if(pilha_vazia(stack)){
+                        printf("\n\tNão há operandos suficientes para realizar a operação.\n");
+                        empilhaTopo(stack, element);
+                    }
+                    else{
+                        desempilhaTopo(stack, &element);
+                        n2 = element.num;
+                        res=n2*n1;
+                        element.num = res;
+                        empilhaTopo(stack, element);
+                    }
                 }
             }
             else if(in=='/') { /*divisao*/
-                desempilhaTopo(stack, &element);
-                n1 = element.num;
-                if(pilha_vazia(stack)){
-                    printf("Não há operandos suficientes para realizar a operação.\n");
-                    empilhaTopo(stack, element);
-                }
-                else{
+                if(pilha_vazia(stack)==0){
                     desempilhaTopo(stack, &element);
-                    n2 = element.num;
-                    res=(int)n2/(int)n1;
-                    element.num = res;
-                    empilhaTopo(stack, element);
+                    n1 = element.num;
+                    if(pilha_vazia(stack)){
+                        printf("Não há operandos suficientes para realizar a operação.\n");
+                        empilhaTopo(stack, element);
+                    }
+                    else{
+                        desempilhaTopo(stack, &element);
+                        n2 = element.num;
+                        res=(int)n2/(int)n1;
+                        element.num = res;
+                        empilhaTopo(stack, element);
+                    }
                 }
             }
         }
         
-    }while(in!='s' && in!='S');
-    liberaPilha(stack);
+    }while(in!='s' && in!='S'); //repete enquanto o usuário não digitar 'S' ou 's' (para sair)
+    liberaPilha(stack); //assim que sair da calculadora, libera a pilha utilizada
 }
