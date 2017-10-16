@@ -5,7 +5,7 @@ int menuMain(){
     printf("\t\t\t----------------------------\n");
     printf("\t\t\t  SELECIONE O MODO DE USO.\n");
     printf("\t\t\t----------------------------\n");
-      printf("\t1- Resolver Expressão.\n\t2- Calculadora.\nSelecione a opção inserindo seu número: \n");
+      printf("\t1- Resolver Expressão.\n\t2- Calculadora.\n\t3- SAIRSelecione a opção inserindo seu número: \n");
       scanf("%d", &opcao);
     return opcao;
   }
@@ -43,10 +43,10 @@ void calc(){
     int n1, n2, res;
     stack = novaPilha();
     do{
-        //system("clear");
-        printf("CALCULADORA:\n");
+        printf("\n\n\n\nCALCULADORA:\n");
         if(pilha_vazia(stack)){ printf("Pilha Vazia!\n"); }
         else{ imprimePilha(stack); }
+        printf("\n");
         scanf("%c", &in);
         if(in>=48 && in<=57){
             element.num = atoi(&in);
@@ -88,7 +88,7 @@ void calc(){
                 desempilhaTopo(stack, &element);
                 n1 = element.num;
                 if(pilha_vazia(stack)){
-                    printf("Não há operandos suficientes para realizar a operação.\n");
+                    printf("\n\tNão há operandos suficientes para realizar a operação.\n");
                     empilhaTopo(stack, element);
                 }
                 else{

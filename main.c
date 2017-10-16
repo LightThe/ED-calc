@@ -41,13 +41,14 @@ int main(){
 				getchar();
 				getchar();
 				calc();
+				opc=0;
 			break;
 		/**************ERRO****************/
 			default:
 				printf("A opção selecionada não existe!!\n");
 			break;
 		}
-	}while (opc!=1 && opc!=2); 				//enquanto a opção selecionada for incorreta, repete o menu;
+	}while (opc!=3); 				//enquanto a opção selecionada nao for SAIR, repete o menu;
 
 	return 0;
 }
