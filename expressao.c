@@ -34,7 +34,9 @@ int validaExpressão(char Expr[]){
 void posfixaExpressao(char Expr[], char saida[]){
     Pilha **stack;
     stack = novaPilha();
+    Data element;
     int i;
+    element.num = 0;
     saida = "";
     for(i=0; Expr[i]!='\0'; i++){
         if(Expr[i] >= 48 && Expr[i] <= 57){
@@ -43,24 +45,90 @@ void posfixaExpressao(char Expr[], char saida[]){
         }
         else if(Expr[i] == '('){
             //parentese de abertura
-
+            element.carac = '(';
+            empilhaTopo(stack, element);
         }
         else if(Expr[i] == ')'){
             //parentese de fechamento
-        }
-        /**************OPERADORES**********/
-        else if(Expr[i] == '+'){
+            do{
+                desempilhaTopo(stack, &element);
+                if(element.carac != '('){
+                    sprintf(saida, "%s %c", saida, element.carac);
+                }
+            }while(element.carac != '(');
 
+        }
+        #pragma region *OPERADORES*                         //diretiva de preprocessamento usada para minimizar essa região de código dentro do esditor de texto
+        //um elemento com prioridade 2 tem menos prioridade que um com o mesmo valor em 1
+        else if(Expr[i] == '+'){
+            //prioridade = 2
+            if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
+                do{
+                    desempilhaTopo(stack, &element);                    //se não for, desempilha  e verifica se a prioridade é igual ou maior
+                    if(element.carac == '+'||element.carac == '-'||element.carac == '*'||element.carac == '/'){
+                        sprintf(saida, "%s %c", saida, element.carac);  //caso a prioridade seja maior, copia o caractere desempilhado
+                    }
+                    else{
+                        empilhaTopo(stack, element);                    //se a prioridade nao for >=, retorna o caractere para a pilha
+                    }
+                }while(element.carac == '+'||element.carac == '-'||element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
+            }
+            element.carac = '+';                //adiciona o caractere analisado
+            empilhaTopo(stack, element);        //empilha o caractere analisado
         }
         else if(Expr[i] == '-'){
-
+            //prioridade = 2
+            if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
+                do{
+                    desempilhaTopo(stack, &element);                    //se não for, desempilha  e verifica se a prioridade é igual ou maior
+                    if(element.carac == '-'||element.carac == '+'||element.carac == '*'||element.carac == '/'){
+                        sprintf(saida, "%s %c", saida, element.carac);  //caso a prioridade seja maior, copia o caractere desempilhado
+                    }
+                    else{
+                        empilhaTopo(stack, element);                    //se a prioridade nao for >=, retorna o caractere para a pilha
+                    }
+                }while(element.carac == '-'||element.carac == '+'||element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
+            }
+            element.carac = '-';                //adiciona o caractere analisado
+            empilhaTopo(stack, element);        //empilha o caractere analisado
         }
         else if(Expr[i] == '*'){
-
+            //prioridade = 1
+            if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
+                do{
+                    desempilhaTopo(stack, &element);                    //se não for, desempilha  e verifica se a prioridade é igual ou maior
+                    if(element.carac == '*'||element.carac == '/'){
+                        sprintf(saida, "%s %c", saida, element.carac);  //caso a prioridade seja maior, copia o caractere desempilhado
+                    }
+                    else{
+                        empilhaTopo(stack, element);                    //se a prioridade nao for >=, retorna o caractere para a pilha
+                    }
+                }while(element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
+            }
+            element.carac = '*';                //adiciona o caractere analisado
+            empilhaTopo(stack, element);        //empilha o caractere analisado
         }
         else if(Expr[i] == '/'){
-            
+            //prioridade = 1
+            if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
+                do{
+                    desempilhaTopo(stack, &element);                    //se não for, desempilha  e verifica se a prioridade é igual ou maior
+                    if(element.carac == '*'||element.carac == '/'){
+                        sprintf(saida, "%s %c", saida, element.carac);  //caso a prioridade seja maior, copia o caractere desempilhado
+                    }
+                    else{
+                        empilhaTopo(stack, element);                    //se a prioridade nao for >=, retorna o caractere para a pilha
+                    }
+                }while(element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
+            }
+            element.carac = '/';                //adiciona o caractere analisado
+            empilhaTopo(stack, element);        //empilha o caractere analisado
         }
+        #pragma endregion
+    }
+    while(pilha_vazia(stack) == 0){
+        desempilhaTopo(stack, &element);
+        sprintf(saida, "%s %c", saida, element.carac);
     }
 }
 void calc(){
