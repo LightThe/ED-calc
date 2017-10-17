@@ -10,27 +10,26 @@ int menuMain(){
     return opcao;
 }
 int validaExpressão(char Expr[]){
-    Pilha **stack;
-    Data elem;
-    int cnt;
-    for(cnt=0; Expr[cnt] != '\0'; cnt++){
-        if(Expr[cnt] == '('){
-            elem.carac = '(';
-            empilhaTopo(stack, elem);
+    Pilha **stack;          //pilha nova
+    stack = novaPilha();    //inicia a pilha vazia
+    Data elem;              //elemento para ajudar a empilhar e desempilhar
+    int cnt;                //contador
+    for(cnt=0; Expr[cnt] != '\0'; cnt++){   //enquanto nao chegar no final da expressao
+        if(Expr[cnt] == '('){               //se encontrar abertura de escopo
+            elem.carac = '(';               //define o caractere a ser empilhado
+            empilhaTopo(stack, elem);       //empilha a abertura de escopo na pilha
         }
-        else if(Expr[cnt] == ')'){
-            if(pilha_vazia(stack)){
-                return 1;
+        else if(Expr[cnt] == ')'){          //se encontrar fechamento de escopo
+            if(pilha_vazia(stack)){         //verifica se a pilha é vazia
+                return 1;                   //caso a pilha seja vazia, a expressão é inválida
             }
-            else{
-                desempilhaTopo(stack, &elem);
+            else{                           //senão
+                desempilhaTopo(stack, &elem);//desempilha uma abertura de escopo
             }
         }
     }
-    if(pilha_vazia(stack)){ return 0; }
-    else { return 1; }
-    return 0; //retorna 0 se for válida
-    return 1; //retorna 1 se for inválida
+    if(pilha_vazia(stack) == 1){ return 0; }    //se ao final a pilha estiver vazia, a expressão é valida
+    else { return 1; }                          //se a pilha não estiver vazia, faltou algum fechamento de escopo
 }
 void posfixaExpressao(char Expr[]){
     Pilha **stack;

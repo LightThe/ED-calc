@@ -19,8 +19,9 @@ int main(){
 				printf("\t\tOpção selecionada: Resolver Expressão.\n");
 				printf("Digite a expressão na forma infixa -> "); 
 				scanf("\n%[^\n]s", exEnt); 									   	 //lê a expressão digitada, até o \n (enter)
+				printf("%s\n", exEnt);
 				ret = validaExpressão(exEnt);									 //usa a função validaExpressão e armazena seu retorno em ret
-				if(ret){ 														 //se o retorno for diferente de zero, a função é inválida
+				if(ret != 0){ 														 //se o retorno for diferente de zero, a função é inválida
 					printf("A Expressão é inválida!\n\nRetornando ao menu...\n");
 					break;
 				}
@@ -30,6 +31,7 @@ int main(){
 					printf("A expressão em sua forma posfixa é -> %s\n", exPos);
 					//avaliar?? a expressao posfixada
 					printf("O resultado dessa expressão é -> %f\nPessoine qualquer tecla para continuar.\n", res);
+					getchar();
 					getchar();
 				}
 			break;
