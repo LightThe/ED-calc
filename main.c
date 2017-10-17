@@ -11,17 +11,16 @@ int main(){
   char exEnt[50] = "", exPos[50] = "";	//exEnt = Entrada do usuario, exPos = convertida posfixada
 	do{
 		opc = menuMain(); //recebe a opção selecionada do menu;
-		fflush(stdin);
 		switch(opc){
 		/**********************Opcao 1: Resolver Expressão********************/
 			case 1:
-				system("clear"); 												 //limpa os menus anteriores da tela
+				system("clear"); 						//limpa os menus anteriores da tela
 				printf("\t\tOpção selecionada: Resolver Expressão.\n");
-				printf("Digite a expressão na forma infixa -> "); 
-				scanf("\n%[^\n]s", exEnt); 									   	 //lê a expressão digitada, até o \n (enter)
+				printf("Digite a expressão na forma infixa\n(Utilize apenas números positivos de 0 a 9 e não utilize espaços)\n-> "); 
+				scanf("\n%[^\n]s", exEnt); 				//lê a expressão digitada, até o \n (enter)
 				printf("%s\n", exEnt);
-				ret = validaExpressão(exEnt);									 //usa a função validaExpressão e armazena seu retorno em ret
-				if(ret != 0){ 														 //se o retorno for diferente de zero, a função é inválida
+				ret = validaExpressão(exEnt);			//usa a função validaExpressão e armazena seu retorno em ret
+				if(ret != 0){ 							//se o retorno for diferente de zero, a função é inválida
 					printf("A Expressão é inválida!\n\nRetornando ao menu...\n");
 					break;
 				}
@@ -37,7 +36,7 @@ int main(){
 			break;
 		/**********************Opcao 2: Calculadora********************/
 			case 2:
-				system("clear"); 												 //limpa os menus anteriores da tela
+				system("clear"); 						//limpa os menus anteriores da tela
 				printf("Opção selecionada: Calculadora.\n");
 				printf("Para usar a calculadora, digite os valores, depois digite a operação\nque deseja realizar com os dois ultimos valores inseridos.\nDigite S a qualquer momento para Sair.\n\n");
 				printf("Pressione ENTER para iniciar...");

@@ -31,23 +31,35 @@ int validaExpressão(char Expr[]){
     if(pilha_vazia(stack) == 1){ return 0; }    //se ao final a pilha estiver vazia, a expressão é valida
     else { return 1; }                          //se a pilha não estiver vazia, faltou algum fechamento de escopo
 }
-void posfixaExpressao(char Expr[]){
+void posfixaExpressao(char Expr[], char saida[]){
     Pilha **stack;
     stack = novaPilha();
-    int i, tamExp = strlen(Expr);
-    for(i=0; i<tamExp; i++){
+    int i;
+    saida = "";
+    for(i=0; Expr[i]!='\0'; i++){
         if(Expr[i] >= 48 && Expr[i] <= 57){
             //número
-            
+            sprintf(saida, "%s %d", saida, Expr[i]);
         }
         else if(Expr[i] == '('){
             //parentese de abertura
+
         }
         else if(Expr[i] == ')'){
             //parentese de fechamento
         }
-        else if(Expr[i] == '+' || Expr[i] == '-' || Expr[i] == '*' || Expr[i] == '/'){
-            //operador
+        /**************OPERADORES**********/
+        else if(Expr[i] == '+'){
+
+        }
+        else if(Expr[i] == '-'){
+
+        }
+        else if(Expr[i] == '*'){
+
+        }
+        else if(Expr[i] == '/'){
+            
         }
     }
 }
