@@ -7,5 +7,5 @@ int validaExpressao(char Expr[]);
 void posfixaExpressao(char Expr[], char out[]);
 //Calcula o resultado da expressão posfixada
 int calcPos(char Expr[]);
-//função responsável pela opção da calculadora
+//função responsável pela opção da calculadora.
 void calc();
