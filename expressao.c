@@ -9,11 +9,12 @@ int menuMain(){
     scanf("%d", &opcao);
     return opcao;
 }
-int validaExpressão(char Expr[]){
+int validaExpressao(char Expr[]){
     Pilha **stack;          //pilha nova
     stack = novaPilha();    //inicia a pilha vazia
     Data elem;              //elemento para ajudar a empilhar e desempilhar
     int cnt;                //contador
+    if(strcmp(Expr, "") == 0){ return 1; }
     for(cnt=0; Expr[cnt] != '\0'; cnt++){   //enquanto nao chegar no final da expressao
         if(Expr[cnt] == '('){               //se encontrar abertura de escopo
             elem.carac = '(';               //define o caractere a ser empilhado
@@ -31,17 +32,17 @@ int validaExpressão(char Expr[]){
     if(pilha_vazia(stack) == 1){ return 0; }    //se ao final a pilha estiver vazia, a expressão é valida
     else { return 1; }                          //se a pilha não estiver vazia, faltou algum fechamento de escopo
 }
-void posfixaExpressao(char Expr[], char saida[]){
+void posfixaExpressao(char Expr[], char out[]){
     Pilha **stack;
     stack = novaPilha();
     Data element;
     int i;
     element.num = 0;
-    saida = "";
+    char saida[50] = "";
     for(i=0; Expr[i]!='\0'; i++){
         if(Expr[i] >= 48 && Expr[i] <= 57){
             //número
-            sprintf(saida, "%s %d", saida, Expr[i]);
+            sprintf(saida, "%s %c", saida, Expr[i]);
         }
         else if(Expr[i] == '('){
             //parentese de abertura
@@ -87,6 +88,10 @@ void posfixaExpressao(char Expr[], char saida[]){
                     else{
                         empilhaTopo(stack, element);                    //se a prioridade nao for >=, retorna o caractere para a pilha
                     }
+                    if(pilha_vazia(stack)==0){
+                        desempilhaTopo(stack, &element);
+                        empilhaTopo(stack, element);
+                    }
                 }while(element.carac == '-'||element.carac == '+'||element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
             }
             element.carac = '-';                //adiciona o caractere analisado
@@ -130,6 +135,93 @@ void posfixaExpressao(char Expr[], char saida[]){
         desempilhaTopo(stack, &element);
         sprintf(saida, "%s %c", saida, element.carac);
     }
+    strcpy(out, saida);
+}
+int calcPos(char Expr[]){
+    int i, n1, n2, res;
+    Data element;
+    Pilha **stack;
+    stack = novaPilha();
+    for(i=0; Expr[i]!='\0'; i++){
+
+        if(Expr[i]>=48 && Expr[i]<=57){
+            element.num = atoi(&Expr[i]);
+            empilhaTopo(stack, element);
+        }
+        else{
+            if(Expr[i]=='+') {
+                if(pilha_vazia(stack) == 0){
+                    desempilhaTopo(stack, &element);
+                    n1 = element.num;
+                    if(pilha_vazia(stack)){
+                        printf("Não há operandos suficientes para realizar a operação.\n");
+                        empilhaTopo(stack, element);
+                    }
+                    else{
+                        desempilhaTopo(stack, &element);
+                        n2 = element.num;
+                        res=n2+n1;
+                        element.num = res;
+                        empilhaTopo(stack, element);
+                    }
+                }
+            }
+            else if(Expr[i]=='-') {
+                if(pilha_vazia(stack)==0){
+                    desempilhaTopo(stack, &element);
+                    n1 = element.num;
+                    if(pilha_vazia(stack)){
+                        printf("Não há operandos suficientes para realizar a operação.\n");
+                        empilhaTopo(stack, element);
+                    }
+                    else{
+                        desempilhaTopo(stack, &element);
+                        n2 = element.num;
+                        res=n2-n1;
+                        element.num = res;
+                        empilhaTopo(stack, element);
+                    }
+                }
+            }
+            else if(Expr[i]=='*') {
+                if(pilha_vazia(stack)==0){
+                    desempilhaTopo(stack, &element);
+                    n1 = element.num;
+                    if(pilha_vazia(stack)){
+                        printf("\n\tNão há operandos suficientes para realizar a operação.\n");
+                        empilhaTopo(stack, element);
+                    }
+                    else{
+                        desempilhaTopo(stack, &element);
+                        n2 = element.num;
+                        res=n2*n1;
+                        element.num = res;
+                        empilhaTopo(stack, element);
+                    }
+                }
+            }
+            else if(Expr[i]=='/') {
+                if(pilha_vazia(stack)==0){
+                    desempilhaTopo(stack, &element);
+                    n1 = element.num;
+                    if(pilha_vazia(stack)){
+                        printf("Não há operandos suficientes para realizar a operação.\n");
+                        empilhaTopo(stack, element);
+                    }
+                    else{
+                        desempilhaTopo(stack, &element);
+                        n2 = element.num;
+                        res=(int)n2/(int)n1;
+                        element.num = res;
+                        empilhaTopo(stack, element);
+                    }
+                }
+            }
+        }
+    }
+    desempilhaTopo(stack, &element);
+    res = element.num;
+    return res;
 }
 void calc(){
     char in;                //recebe uma entrada
@@ -166,7 +258,7 @@ void calc(){
                     }
                 }
             }
-            else if(in=='-') { /*subtracao*/ 
+            else if(in=='-') { /*subtracao*/
                 if(pilha_vazia(stack)==0){
                     desempilhaTopo(stack, &element);
                     n1 = element.num;
@@ -183,7 +275,7 @@ void calc(){
                     }
                 }
             }
-            else if(in=='*') { /*multiplicacao*/ 
+            else if(in=='*') { /*multiplicacao*/
                 if(pilha_vazia(stack)==0){
                     desempilhaTopo(stack, &element);
                     n1 = element.num;
@@ -218,7 +310,7 @@ void calc(){
                 }
             }
         }
-        
+
     }while(in!='s' && in!='S'); //repete enquanto o usuário não digitar 'S' ou 's' (para sair)
     liberaPilha(stack); //assim que sair da calculadora, libera a pilha utilizada
 }
