@@ -63,8 +63,8 @@ void posfixaExpressao(char Expr[], char out[]){
         //um elemento com prioridade 2 tem menos prioridade que um com o mesmo valor em 1
         else if(Expr[i] == '+'){
             //prioridade = 2
-            if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
-                do{
+            do{
+                if(pilha_vazia(stack)==0){
                     desempilhaTopo(stack, &element);                    //se não for, desempilha  e verifica se a prioridade é igual ou maior
                     if(element.carac == '+'||element.carac == '-'||element.carac == '*'||element.carac == '/'){
                         sprintf(saida, "%s %c", saida, element.carac);  //caso a prioridade seja maior, copia o caractere desempilhado
@@ -72,15 +72,16 @@ void posfixaExpressao(char Expr[], char out[]){
                     else{
                         empilhaTopo(stack, element);                    //se a prioridade nao for >=, retorna o caractere para a pilha
                     }
-                }while(element.carac == '+'||element.carac == '-'||element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
-            }
+                }
+                else{ element.carac = 'c'; };
+            }while(element.carac == '+'||element.carac == '-'||element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
             element.carac = '+';                //adiciona o caractere analisado
             empilhaTopo(stack, element);        //empilha o caractere analisado
         }
         else if(Expr[i] == '-'){
             //prioridade = 2
-            if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
-                do{
+            do{
+                if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
                     desempilhaTopo(stack, &element);                    //se não for, desempilha  e verifica se a prioridade é igual ou maior
                     if(element.carac == '-'||element.carac == '+'||element.carac == '*'||element.carac == '/'){
                         sprintf(saida, "%s %c", saida, element.carac);  //caso a prioridade seja maior, copia o caractere desempilhado
@@ -88,19 +89,17 @@ void posfixaExpressao(char Expr[], char out[]){
                     else{
                         empilhaTopo(stack, element);                    //se a prioridade nao for >=, retorna o caractere para a pilha
                     }
-                    if(pilha_vazia(stack)==0){
-                        desempilhaTopo(stack, &element);
-                        empilhaTopo(stack, element);
-                    }
-                }while(element.carac == '-'||element.carac == '+'||element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
-            }
+                }
+                else{ element.carac = 'c'; };
+            }while(element.carac == '-'||element.carac == '+'||element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
+            
             element.carac = '-';                //adiciona o caractere analisado
             empilhaTopo(stack, element);        //empilha o caractere analisado
         }
         else if(Expr[i] == '*'){
             //prioridade = 1
-            if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
-                do{
+            do{
+                if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
                     desempilhaTopo(stack, &element);                    //se não for, desempilha  e verifica se a prioridade é igual ou maior
                     if(element.carac == '*'||element.carac == '/'){
                         sprintf(saida, "%s %c", saida, element.carac);  //caso a prioridade seja maior, copia o caractere desempilhado
@@ -108,15 +107,17 @@ void posfixaExpressao(char Expr[], char out[]){
                     else{
                         empilhaTopo(stack, element);                    //se a prioridade nao for >=, retorna o caractere para a pilha
                     }
-                }while(element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
-            }
+                }
+                else{ element.carac = 'c'; };
+            }while(element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
+
             element.carac = '*';                //adiciona o caractere analisado
             empilhaTopo(stack, element);        //empilha o caractere analisado
         }
         else if(Expr[i] == '/'){
             //prioridade = 1
-            if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
-                do{
+            do{
+                if(pilha_vazia(stack)==0){                      //verifica se a pilha não é vazia
                     desempilhaTopo(stack, &element);                    //se não for, desempilha  e verifica se a prioridade é igual ou maior
                     if(element.carac == '*'||element.carac == '/'){
                         sprintf(saida, "%s %c", saida, element.carac);  //caso a prioridade seja maior, copia o caractere desempilhado
@@ -124,8 +125,10 @@ void posfixaExpressao(char Expr[], char out[]){
                     else{
                         empilhaTopo(stack, element);                    //se a prioridade nao for >=, retorna o caractere para a pilha
                     }
-                }while(element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
-            }
+                }
+                else{ element.carac = 'c'; };
+            }while(element.carac == '*'||element.carac == '/');  //repete enquanto houver caracteres de prioridade >=
+            
             element.carac = '/';                //adiciona o caractere analisado
             empilhaTopo(stack, element);        //empilha o caractere analisado
         }

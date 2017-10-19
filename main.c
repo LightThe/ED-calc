@@ -6,8 +6,7 @@
 #include "pilha.h"
 #include "expressao.h"
 int main(){
-  int opc, cnt, ret; 					//opc = opção, cnt = contagem , ret = retorno
-  float res;							//res = resultado
+  int opc, cnt, ret, res; 					//opc = opção, cnt = contagem , ret = retorno, res = resultado
   char exEnt[50] = "", exPos[50] = "";	//exEnt = Entrada do usuario, exPos = convertida posfixada
 	do{
 		opc = menuMain(); //recebe a opção selecionada do menu;
@@ -29,7 +28,7 @@ int main(){
 					posfixaExpressao(exEnt, exPos);
 					printf("A expressão em sua forma posfixa é -> %s\n", exPos);
 					res = calcPos(exPos);
-					printf("O resultado dessa expressão é -> %f\nPessoine qualquer tecla para continuar.\n", res);
+					printf("O resultado dessa expressão é -> %d\nPessoine qualquer tecla para continuar.\n", res);
 					getchar();
 					getchar();
 				}
@@ -38,7 +37,7 @@ int main(){
 			case 2:
 				system("clear"); 						//limpa os menus anteriores da tela
 				printf("Opção selecionada: Calculadora.\n");
-				printf("Para usar a calculadora, digite os valores, depois digite a operação\nque deseja realizar com os dois ultimos valores inseridos.\nDigite S a qualquer momento para Sair.\n\n");
+				printf("Para usar a calculadora, digite os valores, depois digite a operação\nque deseja realizar com os dois ultimos valores inseridos.\n(Utilize apenas números positivos de 0 a 9 e não utilize espaços)\nDigite S a qualquer momento para Sair.\n\n");
 				printf("Pressione ENTER para iniciar...");
 				getchar();
 				getchar();
