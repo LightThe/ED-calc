@@ -1,19 +1,19 @@
 # RPN Expression Calculator
 
-This program was developed as an Essay for Estruturas de Dados class at Universidade de Brasília, it converts infix expression, converts it to postfix and return a result.
+This program was developed as an essay for Data Structures class at Universidade de Brasília, it converts single digit infix math expression to postfix, showing the expression and the result of its calculation.
 
-Take note that the code in here is for educational purposes only and isn't perfect in any form. The program is entirely in portuguese language, with no support or updates whatsoever.
+## How to use
 
----
+The idea behind this project is to use a stack data structure to read all of the elements of the input and rearrange them in the correct order for the calculation to take place. The command line interface has two main modes. 
 
-The program has two main options
+### Expression conversion
 
-* Expression conversion, under the name of "Resolução de expressão"
-* Calculator (Calculadora)
+Under the name of "Resolução de expressão", this mode takes a math expression with infixed operators (2+2) and returns its Reverse Polish Notation conversion (2 2 +) along with the result.
 
-The calculator mode uses a stack to calculate arithmetic operations (+ - * /)
-based on the numbers stacked beforehand.
+### Calculator
 
----
+The calculator (calculadora) mode uses the RPN notation to perform basic arithmetic operations on single digit integers. Numbers are stacked and every operation uses the top two numbers of the stack to compute the result before putting it back on the stack.
 
-:raising_hand: ```Made by Théo Gallo; 2017. Feel free to use this source code as you like.```
+## Dependencies and Building
+
+You will need some C compiler (GCC works just fine), compile All the C files into an executable and you're good to go.
